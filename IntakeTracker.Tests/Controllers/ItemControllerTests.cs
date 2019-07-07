@@ -24,9 +24,7 @@ namespace IntakeTracker.Tests.Controllers
             mockRepository.Setup(mock => mock.FetchAllAsync())
                 .ReturnsAsync(new List<Item>());
 
-            IRepository<Item> repository = mockRepository.Object;
-            IService<Item> service = new ItemService(Mock.Of<ILogger<ItemService>>(), repository);
-            ItemsController controller = new ItemsController(service);
+            ItemsController controller = CreateSimpleItemController(mockRepository.Object);
 
 
             IActionResult result = await controller.FetchAllAsync();
@@ -52,9 +50,7 @@ namespace IntakeTracker.Tests.Controllers
             mockRepository.Setup(mock => mock.FetchAllAsync())
                 .ReturnsAsync(items);
 
-            IRepository<Item> repository = mockRepository.Object;
-            IService<Item> service = new ItemService(Mock.Of<ILogger<ItemService>>(), repository);
-            ItemsController controller = new ItemsController(service);
+            ItemsController controller = CreateSimpleItemController(mockRepository.Object);
 
 
             IActionResult result = await controller.FetchAllAsync();
@@ -64,6 +60,13 @@ namespace IntakeTracker.Tests.Controllers
                 .Which.Value.Should().BeOfType<Response>()
                 .Which.Data.Should().BeAssignableTo<IEnumerable<Item>>()
                 .Which.Count().Should().Be(3);
+        }
+
+        private static ItemsController CreateSimpleItemController(IRepository<Item> repository)
+        {
+            IService<Item> service = new ItemService(Mock.Of<ILogger<ItemService>>(), repository);
+
+            return new ItemsController(service);
         }
     }
 }
