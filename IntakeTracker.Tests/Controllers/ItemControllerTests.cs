@@ -4,6 +4,7 @@ using IntakeTracker.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using IntakeTracker.Entities;
 using IntakeTracker.Infrastructure;
@@ -17,7 +18,7 @@ namespace IntakeTracker.Tests.Controllers
     public class ItemControllerTests
     {
         [Fact]
-        public async void ShouldReturnNoItems()
+        public async Task ShouldReturnNoItems()
         {
             var mockRepository = new Mock<IRepository<Item>>();
             mockRepository.Setup(mock => mock.FetchAllAsync())
@@ -38,7 +39,7 @@ namespace IntakeTracker.Tests.Controllers
         }
 
         [Fact]
-        public async void ShouldReturnItems()
+        public async Task ShouldReturnItems()
         {
             var items = new List<Item>
             {
