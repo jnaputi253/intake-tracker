@@ -30,10 +30,7 @@ namespace IntakeTracker.Tests.Controllers
             IActionResult result = await controller.FetchAllAsync();
 
 
-            result.Should().BeOfType<ObjectResult>()
-                .Which.Value.Should().BeOfType<Response>()
-                .Which.Data.Should().BeAssignableTo<IEnumerable<Item>>()
-                .Which.Count().Should().Be(0);
+            AssertFetchListSize(result, 0);
         }
 
         [Fact]
@@ -56,10 +53,7 @@ namespace IntakeTracker.Tests.Controllers
             IActionResult result = await controller.FetchAllAsync();
 
 
-            result.Should().BeOfType<ObjectResult>()
-                .Which.Value.Should().BeOfType<Response>()
-                .Which.Data.Should().BeAssignableTo<IEnumerable<Item>>()
-                .Which.Count().Should().Be(3);
+            AssertFetchListSize(result, 3);
         }
 
         private static ItemsController CreateSimpleItemController(IRepository<Item> repository)
@@ -67,6 +61,14 @@ namespace IntakeTracker.Tests.Controllers
             IService<Item> service = new ItemService(Mock.Of<ILogger<ItemService>>(), repository);
 
             return new ItemsController(service);
+        }
+
+        private static void AssertFetchListSize(IActionResult result, int expected)
+        {
+            result.Should().BeOfType<ObjectResult>()
+                .Which.Value.Should().BeOfType<Response>()
+                .Which.Data.Should().BeAssignableTo<IEnumerable<Item>>()
+                .Which.Count().Should().Be(expected);
         }
     }
 }
