@@ -16,10 +16,6 @@ namespace IntakeTracker.Tests.Controllers
 {
     public class ItemControllerTests
     {
-        private ItemsController _controller;
-        private IRepository<Item> _repository;
-        private IService<Item> _service;
-
         [Fact]
         public async void ShouldReturnNoItems()
         {
@@ -27,12 +23,12 @@ namespace IntakeTracker.Tests.Controllers
             mockRepository.Setup(mock => mock.FetchAllAsync())
                 .ReturnsAsync(new List<Item>());
 
-            _repository = mockRepository.Object;
-            _service = new ItemService(Mock.Of<ILogger<ItemService>>(), _repository);
-            _controller = new ItemsController(_service);
+            IRepository<Item> repository = mockRepository.Object;
+            IService<Item> service = new ItemService(Mock.Of<ILogger<ItemService>>(), repository);
+            ItemsController controller = new ItemsController(service);
 
 
-            IActionResult result = await _controller.FetchAllAsync();
+            IActionResult result = await controller.FetchAllAsync();
 
 
             result.Should().BeOfType<ObjectResult>()
@@ -55,12 +51,12 @@ namespace IntakeTracker.Tests.Controllers
             mockRepository.Setup(mock => mock.FetchAllAsync())
                 .ReturnsAsync(items);
 
-            _repository = mockRepository.Object;
-            _service = new ItemService(Mock.Of<ILogger<ItemService>>(), _repository);
-            _controller = new ItemsController(_service);
+            IRepository<Item> repository = mockRepository.Object;
+            IService<Item> service = new ItemService(Mock.Of<ILogger<ItemService>>(), repository);
+            ItemsController controller = new ItemsController(service);
 
 
-            IActionResult result = await _controller.FetchAllAsync();
+            IActionResult result = await controller.FetchAllAsync();
 
 
             result.Should().BeOfType<ObjectResult>()
