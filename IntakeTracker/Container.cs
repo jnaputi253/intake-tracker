@@ -1,4 +1,5 @@
 ﻿using IntakeTracker.Database.Configuration;
+using IntakeTracker.Entities;
 using IntakeTracker.Repositories;
 using IntakeTracker.Services;
 using Microsoft.Extensions.Configuration;
@@ -35,8 +36,8 @@ namespace IntakeTracker
 
         private void RegisterGeneralDependencies()
         {
-            _serviceCollection.AddSingleton<ItemService>();
-            _serviceCollection.AddSingleton<ItemRepository>();
+            _serviceCollection.AddSingleton<IService<Item>, ItemService>();
+            _serviceCollection.AddSingleton<IRepository<Item>, ItemRepository>();
         }
     }
 }

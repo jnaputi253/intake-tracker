@@ -6,7 +6,7 @@ using MongoDB.Driver;
 
 namespace IntakeTracker.Repositories
 {
-    public class ItemRepository
+    public class ItemRepository : IRepository<Item>
     {
         private readonly IMongoCollection<Item> _itemsCollection;
 
@@ -17,7 +17,7 @@ namespace IntakeTracker.Repositories
             _itemsCollection = database.GetCollection<Item>("items");
         }
 
-        public virtual async Task<List<Item>> FetchAllAsync()
+        public async Task<IEnumerable<Item>> FetchAllAsync()
         {
             IAsyncCursor<Item> fetchedItems = await _itemsCollection.FindAsync(item => true);
 
