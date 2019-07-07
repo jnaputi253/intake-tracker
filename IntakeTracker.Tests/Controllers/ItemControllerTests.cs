@@ -15,10 +15,10 @@ using Xunit;
 
 namespace IntakeTracker.Tests.Controllers
 {
-    public class ItemControllerTests
+    public static class ItemControllerTests
     {
         [Fact]
-        public async Task ShouldReturnNoItems()
+        public static async Task ShouldReturnNoItems()
         {
             var mockRepository = new Mock<IRepository<Item>>();
             mockRepository.Setup(mock => mock.FetchAllAsync())
@@ -39,7 +39,7 @@ namespace IntakeTracker.Tests.Controllers
         }
 
         [Fact]
-        public async Task ShouldReturnItems()
+        public static async Task ShouldReturnItems()
         {
             var items = new List<Item>
             {
