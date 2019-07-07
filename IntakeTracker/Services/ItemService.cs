@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using IntakeTracker.Entities;
 using IntakeTracker.Infrastructure;
@@ -12,12 +9,12 @@ using MongoDB.Driver;
 
 namespace IntakeTracker.Services
 {
-    public class ItemService
+    public class ItemService : IService<Item>
     {
         private readonly ILogger<ItemService> _logger;
-        private readonly ItemRepository _repository;
+        private readonly IRepository<Item> _repository;
 
-        public ItemService(ILogger<ItemService> logger, ItemRepository repository)
+        public ItemService(ILogger<ItemService> logger, IRepository<Item> repository)
         {
             _logger = logger;
             _repository = repository;
@@ -25,7 +22,7 @@ namespace IntakeTracker.Services
 
         public async Task<Response> FetchAllAsync()
         {
-            List<Item> items;
+            IEnumerable<Item> items;
 
             try
             {

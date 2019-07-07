@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using IntakeTracker.Entities;
 using IntakeTracker.Infrastructure;
 using IntakeTracker.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,9 @@ namespace IntakeTracker.Controllers
     [Route("/api/v1/[controller]")]
     public class ItemsController
     {
-        private readonly ItemService _service;
+        private readonly IService<Item> _service;
 
-        public ItemsController(ItemService service)
+        public ItemsController(IService<Item> service)
         {
             _service = service;
         }
