@@ -1,7 +1,7 @@
 ﻿namespace IntakeTracker.Database.Schema
 {
-    public class CollectionNames
+    public static class CollectionNames
     {
-        public const string Items = "items";
+        public static string Items { get; } = "items";
     }
 }
