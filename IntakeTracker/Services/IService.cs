@@ -8,6 +8,6 @@ namespace IntakeTracker.Services
     public interface IService<in TEntity> where TEntity : class
     {
         Task<Response> FetchAllAsync();
-        Task<Response> InsertAsync([NotNull] TEntity newEntity);
+        Task<Response> CreateAsync([NotNull] TEntity newEntity);
     }
 }

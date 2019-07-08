@@ -45,7 +45,7 @@ namespace IntakeTracker.Services
             };
         }
 
-        public async Task<Response> InsertAsync(Item newEntity)
+        public async Task<Response> CreateAsync(Item newEntity)
         {
             try
             {
