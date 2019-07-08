@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using IntakeTracker.Database.Errors;
+using IntakeTracker.Database.Errors.Resources;
 using IntakeTracker.Entities;
 using IntakeTracker.Infrastructure;
 using IntakeTracker.Repositories;
@@ -53,7 +54,7 @@ namespace IntakeTracker.Services
                 {
                     return new Response(HttpStatusCode.Conflict)
                     {
-                        Message = DbErrors.ResourceExists
+                        Message = ItemErrors.ItemExists
                     };
                 }
                 

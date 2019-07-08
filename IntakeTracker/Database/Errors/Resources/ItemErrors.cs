@@ -7,5 +7,8 @@ namespace IntakeTracker.Database.Errors.Resources
 
         public static string InvalidCalorieRange { get; } =
             "The calorie range is invalid.  Must be between 0 and 10,000";
+
+        public static string InvalidItem { get; } = "The item is invalid";
+        public static string ItemExists { get; } = "The item already exists";
     }
 }

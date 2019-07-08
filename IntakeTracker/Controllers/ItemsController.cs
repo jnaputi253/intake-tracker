@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using IntakeTracker.Database.Errors.Resources;
 using IntakeTracker.Entities;
@@ -34,23 +33,23 @@ namespace IntakeTracker.Controllers
             return new ObjectResult(response);
         }
 
-        [HttpPost("/create")]
+        [HttpPost("create")]
         [Consumes(ContentTypes.Json)]
         [Produces(ContentTypes.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateItemAsync([FromHeader] Item item)
+        public async Task<IActionResult> CreateItemAsync([FromBody] Item item)
         {
             Response response;
-            
-            if (string.IsNullOrEmpty(item.Name.Trim()))
+
+            if (item == null)
             {
                 response = new Response(HttpStatusCode.BadRequest)
                 {
-                    Message = ItemErrors.EmptyItemName
+                    Message = ItemErrors.InvalidItem
                 };
-                
-                return new ObjectResult(response);
+
+
             }
 
             Dictionary<string, string> validationErrors = ItemValidator.Validate(item);

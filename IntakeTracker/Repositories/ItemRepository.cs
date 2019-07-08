@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using IntakeTracker.Database.Configuration;
 using IntakeTracker.Entities;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace IntakeTracker.Repositories
 {
@@ -32,12 +33,12 @@ namespace IntakeTracker.Repositories
 
         public async Task<bool> ExistsAsync(Item entity)
         {
-            IAsyncCursor<Item> fetchedItems = await _itemsCollection.FindAsync(item =>
-                item.Name.Equals(entity.Name, StringComparison.CurrentCultureIgnoreCase));
+            IMongoQueryable<Item> duplicateNameQuery = _itemsCollection.AsQueryable()
+                .Where(item => item.Name.ToLower() == entity.Name.ToLower());
 
-            Item targetItem = await fetchedItems.FirstOrDefaultAsync();
+            Item duplicateItems = await duplicateNameQuery.FirstOrDefaultAsync();
 
-            return targetItem != null;
+            return duplicateItems != null;
         }
     }
 }
