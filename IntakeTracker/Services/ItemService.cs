@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using IntakeTracker.Database.Errors;
 using IntakeTracker.Entities;
 using IntakeTracker.Infrastructure;
 using IntakeTracker.Repositories;
@@ -34,7 +35,7 @@ namespace IntakeTracker.Services
 
                 return new Response(HttpStatusCode.InternalServerError)
                 {
-                    Message = "There was an error on our side.  Resolving it as soon as we can!"
+                    Message = DbErrors.ServerError
                 };
             }
 
@@ -42,6 +43,33 @@ namespace IntakeTracker.Services
             {
                 Data = items
             };
+        }
+
+        public async Task<Response> InsertAsync(Item newEntity)
+        {
+            try
+            {
+                if (await _repository.ExistsAsync(newEntity))
+                {
+                    return new Response(HttpStatusCode.Conflict)
+                    {
+                        Message = "The item already exists"
+                    };
+                }
+                
+                await _repository.CreateAsync(newEntity);
+            }
+            catch (MongoException e)
+            {
+                _logger.LogError(e.Message);
+                
+                return new Response(HttpStatusCode.InternalServerError)
+                {
+                    Message = DbErrors.ServerError
+                };
+            }
+            
+            return new Response(HttpStatusCode.Created);
         }
     }
 }
