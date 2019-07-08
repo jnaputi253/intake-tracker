@@ -1,0 +1,6 @@
+language: csharp
+solution: IntakeTracker.sln
+mono: none
+dotnet: 2.2.5
+script:
+  - dotnet test
