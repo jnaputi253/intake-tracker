@@ -36,7 +36,7 @@ namespace IntakeTracker.Repositories
             IMongoQueryable<Item> duplicateNameQuery = _itemsCollection.AsQueryable()
                 .Where(item => item.Name.ToLower() == entity.Name.ToLower());
 
-            Item duplicateItems = await duplicateNameQuery.FirstOrDefaultAsync();
+            Item duplicateItem = await duplicateNameQuery.FirstOrDefaultAsync();
 
             return duplicateItems != null;
         }
