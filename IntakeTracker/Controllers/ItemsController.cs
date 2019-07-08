@@ -49,7 +49,7 @@ namespace IntakeTracker.Controllers
                     Message = ItemErrors.InvalidItem
                 };
 
-
+                return new ObjectResult(response);
             }
 
             Dictionary<string, string> validationErrors = ItemValidator.Validate(item);
