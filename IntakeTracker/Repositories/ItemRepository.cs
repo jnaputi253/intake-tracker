@@ -38,7 +38,7 @@ namespace IntakeTracker.Repositories
 
             Item duplicateItem = await duplicateNameQuery.FirstOrDefaultAsync();
 
-            return duplicateItems != null;
+            return duplicateItem != null;
         }
     }
 }
