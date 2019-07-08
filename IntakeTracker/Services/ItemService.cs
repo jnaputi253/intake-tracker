@@ -53,7 +53,7 @@ namespace IntakeTracker.Services
                 {
                     return new Response(HttpStatusCode.Conflict)
                     {
-                        Message = "The item already exists"
+                        Message = DbErrors.ResourceExists
                     };
                 }
                 
