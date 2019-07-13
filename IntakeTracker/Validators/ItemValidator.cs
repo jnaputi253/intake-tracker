@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using IntakeTracker.Database.Errors.Resources;
 using IntakeTracker.Entities;
+using IntakeTracker.Infrastructure.Extensions;
 using JetBrains.Annotations;
 
 namespace IntakeTracker.Validators
@@ -14,14 +15,15 @@ namespace IntakeTracker.Validators
             {
                 throw new ArgumentNullException(nameof(item), "The item cannot be null");
             }
+            
             var errorDictionary = new Dictionary<string, string>();
             
-            if (string.IsNullOrEmpty(item.Name))
+            if (item.Name.IsEmpty())
             {
                 errorDictionary.Add(nameof(item.Name), ItemErrors.EmptyItemName);
             }
 
-            if (string.IsNullOrEmpty(item.Category.Trim()))
+            if (item.Category.IsEmpty())
             {
                 errorDictionary.Add(nameof(item.Category), ItemErrors.EmptyCategoryName);
             }
