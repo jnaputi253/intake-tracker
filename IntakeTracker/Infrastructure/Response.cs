@@ -5,7 +5,7 @@ namespace IntakeTracker.Infrastructure
 {
     public class Response
     {
-        public HttpStatusCode StatusCode { get; set; }
+        public HttpStatusCode StatusCode { get; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public object Data { get; set; }

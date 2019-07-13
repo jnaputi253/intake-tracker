@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using IntakeTracker.Database.Errors.Resources;
 using IntakeTracker.Entities;
@@ -9,9 +10,13 @@ namespace IntakeTracker.Validators
     {
         public static Dictionary<string, string> Validate([NotNull] Item item)
         {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item), "The item cannot be null");
+            }
             var errorDictionary = new Dictionary<string, string>();
             
-            if (string.IsNullOrEmpty(item.Name.Trim()))
+            if (string.IsNullOrEmpty(item.Name))
             {
                 errorDictionary.Add(nameof(item.Name), ItemErrors.EmptyItemName);
             }

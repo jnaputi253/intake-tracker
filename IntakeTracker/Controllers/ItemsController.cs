@@ -26,6 +26,9 @@ namespace IntakeTracker.Controllers
         }
 
         [HttpGet]
+        [Produces(ContentTypes.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> FetchAllAsync()
         {
             Response response = await _service.FetchAllAsync();
@@ -58,7 +61,8 @@ namespace IntakeTracker.Controllers
             {
                 response = new Response(HttpStatusCode.BadRequest)
                 {
-                    Data = validationErrors
+                    Data = validationErrors,
+                    Message = ItemErrors.ValidationErrorsPresent
                 };
 
                 return new ObjectResult(response);

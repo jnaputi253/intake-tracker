@@ -10,5 +10,8 @@ namespace IntakeTracker.Database.Errors.Resources
 
         public static string InvalidItem { get; } = "The item is invalid";
         public static string ItemExists { get; } = "The item already exists";
+
+        public static string ValidationErrorsPresent { get; } =
+            "There were validation errors.  Please consult the list for further information.";
     }
 }
